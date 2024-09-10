@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import SignIn from "../../pages/SignIn";
 
 const initialState = {
     currentuser: null,

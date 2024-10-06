@@ -6,13 +6,13 @@ export default function CallToAction() {
     <div className='flex flex-col sm:flex-row p-3 border border-teal-500 justify-center items-center rounded-tl-3xl rounded-br-3xl text-center'>
         <div className='flex-1 justify-center flex flex-col'>
             <h2 className='text-2xl'>
-                want to learn more about Javascrip
+                Want to save time while reading
             </h2>
             <p className='text-gray-500 my-2'>
-                checkout these resources with 100 javascrip projects?
+                Click the button below so I can summarize it for you
             </p>
             <Button gradientDuoTone='tealToLime' className='rounded-tl-xl rounded-bl-none'>
-                Learn More
+                Summary now
             </Button>
         </div>
         <div className='p-7 flex-1'>

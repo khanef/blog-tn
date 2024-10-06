@@ -19,7 +19,7 @@ export default function Home() {
       <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto'>
         <h1 className='text-3xl font-bold lg:text-6xl'>Welcome to my Blog</h1>
         <p className='text-gray-500 text-xs sm:text-sm'>
-          Here you'll find a variety of articles and tutorials on topics such as web dev, software and programing languages.
+          Here you will find many articles and guides on the topic of plants, such as how to care for them and more details about the types of plants you are interested in.
         </p>
         <Link to='/search' className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>View all posts</Link>
       </div>

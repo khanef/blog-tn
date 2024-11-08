@@ -116,9 +116,10 @@ export default function Search() {
                     <label className='font-semibold'>Category:</label>
                     <Select onChange={handleChange} value={sidebarData.category} id='category'>
                         <option value='uncategorized'>uncategorized</option>
-                        <option value='reactjs'>reactjs</option>
-                        <option value='nextjs'>nextjs</option>
-                        <option value='javascrip'>javascrip</option>
+                        <option value='spring'>Mùa Xuân</option>
+                        <option value='summer'>Mùa Hè</option>
+                        <option value='autum'>Mùa Thu</option>
+                        <option value='winter'>Mùa Đông</option>
                     </Select>
                 </div>
                 <Button type='submit' outline gradientDuoTone='tealToLime'>

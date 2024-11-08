@@ -109,9 +109,10 @@ export default function UpdatePost() {
           <TextInput type='text' required id='title' className='flex-1' onChange={(e) => setFormData({...formData, title: e.target.value})} value={formData.title}/>
           <Select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})}>
             <option value='uncategorized'>Select a category</option>
-            <option value='javascrip'>Javascrip</option>
-            <option value='reactJs'>ReactJs</option>
-            <option value='nextJs'>NextJs</option>
+            <option value='spring'>Mùa Xuân</option>
+            <option value='summer'>Mùa Hè</option>
+            <option value='autum'>Mùa Thu</option>
+            <option value='winter'>Mùa Đông</option>
           </Select>
         </div>
         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>

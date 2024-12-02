@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import {Link, useParams} from 'react-router-dom'
-import {Button, Spinner} from 'flowbite-react'
+import {Button,Modal, Spinner, Textarea} from 'flowbite-react'
 import CallToAction from '../components/CallToAction'
 import CommentSection from '../components/CommentSection'
 import PostCard from '../components/PostCard'
@@ -11,6 +11,9 @@ export default function PostPage() {
     const [error, setError] = useState(false)
     const [post, setPost] = useState(null)
     const [recentPosts, setRecentPosts] = useState(null)
+    const [showModal, setShowModal] = useState(false)
+    const [summary, setSummary] = useState("");
+    const API_SUMMARY_URL = import.meta.env.VITE_API_SUMMARY_URL;
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -53,17 +56,49 @@ export default function PostPage() {
         }
     },[])
 
+    const handleSummaryPost = async () => {
+        try {
+            const res = await fetch(API_SUMMARY_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ content: plainText }), 
+            });
+            const data = await res.json();
+            console.log("Response:", data);
+            if (!res.ok) {
+                console.log(data.message);
+                return;
+            }
+            
+            setSummary(data.summary);
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
     if(loading) return (
         <div className='flex justify-center items-center min-h-screen'>
             <Spinner size='xl' />
         </div>
     )
+    const plainText = post.content.replace(/<\/?[^>]+(>|$)/g, "");
   return (
     <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
         <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>{post && post.title}</h1>
         <Link to={`/search?category=${post && post.category}`} className='self-center mt-5'>
             <Button color='gray' pill size='xs' >{post && post.category}</Button>
         </Link>
+        <Button color='gray' pill size='xs' className='self-center mt-5'>
+            <span 
+                onClick={() => {
+                    setShowModal(true)
+                }}>
+                Summory now
+            </span>
+        </Button>   
         <img src={post && post.image} alt={post && post.title} className='mt-10 p-3 max-h-[600px] w-full object-cover'/>
         <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs '>
             <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
@@ -86,6 +121,24 @@ export default function PostPage() {
                 }
             </div>
         </div>
+        <Modal show={showModal} onClose={() => setShowModal(false)} size="8xl">
+            <Modal.Body className="flex flex-row gap-8">
+                <div className="w-full flex flex-col gap-2 ">
+                    <h1 className='text-center'>Current Blog</h1>
+                    <Textarea value={plainText} className='h-[500px]' readOnly/>
+                </div>
+                <div className="w-full  flex flex-col gap-2 ">
+                    <h1 className='text-center'>Summary Blog</h1>
+                    <Textarea value={summary}  className='h-[500px]' readOnly/>
+                </div>
+            </Modal.Body>
+            <Modal.Footer className='flex justify-center gap-4'>
+                <Button color='success' onClick={handleSummaryPost}>Summary Now</Button> 
+                <Button color="gray" onClick={() => setShowModal(false)}>
+                    No, cancel
+                </Button>   
+            </Modal.Footer>
+        </Modal>                                                                                                    
     </main>
   )
 }

@@ -1,5 +1,4 @@
 import {Link} from 'react-router-dom'
-import CallToAction from '../components/CallToAction'
 import { useEffect, useState } from 'react'
 import PostCard from '../components/PostCard'
 import mainScreen from '../resources/img/screen.jpg'

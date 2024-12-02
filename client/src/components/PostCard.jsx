@@ -12,7 +12,10 @@ export default function PostCard({ post }) {
         />
       </Link>
       <div className='p-3 flex flex-col gap-2'>
-        <span className='italic text-sm'>{post.category}</span>
+        <div className='flex flex-row justify-between'>
+          <span className='italic text-sm'>{post.category}</span>
+          <span className='italic text-sm'>{post && new Date(post.createdAt).toLocaleDateString()}</span>                                    
+        </div>
         <p className='text-2xl font-semibold line-clamp-2'>{post.title}</p>
         <span className='text-sm line-clamp-2'>{plainText}</span>
         <Link

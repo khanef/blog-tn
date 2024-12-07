@@ -104,7 +104,7 @@ export default function PostPage() {
             <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
             <span className='italic'>{post && (post.content.length / 1000).toFixed(0)} mins read</span>
         </div>
-        <div className='p-3 max-w-4xl mx-auto w-full post-content text-justify' dangerouslySetInnerHTML={{__html: post && post.content}}>
+        <div className='p-3 max-w-6xl mx-auto w-full justify-center items-center post-content text-justify' dangerouslySetInnerHTML={{__html: post && post.content}}>
 
         </div>
         <div className='max-w-4xl mx-auto w-full'>

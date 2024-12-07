@@ -65,7 +65,7 @@ export default function Home() {
       <div className='relative'>
         <img src={banner} alt="" className='w-full h-[500px] object-cover'/>
         <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-7xl text-white text-center w-2/3'>
-          A Comprehensive Exploration of Responsible Wood Production Practices and Innovation
+          Each flower carries its own mission as a soul blossoming in nature, bringing hope to life
         </span>
       </div>
 

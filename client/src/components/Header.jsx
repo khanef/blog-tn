@@ -15,7 +15,6 @@ export default function Header() {
     const { currentUser } = useSelector((state) => state.user)
     const { theme } = useSelector((state) => state.theme)
     const [searchTerm, setSearchTerm] = useState('')
-    console.log(searchTerm)
 
     useEffect(() => {
         const urlParams = new URLSearchParams(location.search)

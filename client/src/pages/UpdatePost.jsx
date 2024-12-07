@@ -111,7 +111,7 @@ export default function UpdatePost() {
             <option value='uncategorized'>Select a category</option>
             <option value='spring'>Mùa Xuân</option>
             <option value='summer'>Mùa Hè</option>
-            <option value='autum'>Mùa Thu</option>
+            <option value='autumn'>Mùa Thu</option>
             <option value='winter'>Mùa Đông</option>
           </Select>
         </div>

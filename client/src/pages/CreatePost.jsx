@@ -25,7 +25,7 @@ export default function CreatePost() {
       setImageUploadError(null);
       const storage = getStorage(app);
       const fileName = new Date().getTime() + '-' + file.name;
-      const storageRef = ref(storage, fileName);
+      const storageRef = ref(storage, `Images/${fileName}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
         'state_changed',
@@ -86,7 +86,7 @@ export default function CreatePost() {
             <option value='uncategorized'>Select a category</option>
             <option value='spring'>Mùa Xuân</option>
             <option value='summer'>Mùa Hè</option>
-            <option value='autum'>Mùa Thu</option>
+            <option value='autumn'>Mùa Thu</option>
             <option value='winter'>Mùa Đông</option>
           </Select>
         </div>
@@ -102,7 +102,7 @@ export default function CreatePost() {
                 'Upload Image'
               )
             }
-          </Button>
+          </Button> 
         </div>
           {imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>}
           {formData.image && (

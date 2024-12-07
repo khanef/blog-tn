@@ -1,5 +1,5 @@
 import {Sidebar} from 'flowbite-react'
-import {HiAnnotation, HiArrowSmRight, HiChartPie, HiDocumentText, HiOutlineUserGroup, HiUser} from 'react-icons/hi'
+import {HiAnnotation, HiArrowSmRight, HiChartPie, HiDocumentText, HiOutlineUserGroup, HiUser, HiFolderAdd, HiOutlineAdjustments} from 'react-icons/hi'
 import { useEffect, useState } from 'react'
 import {Link, useLocation} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -72,6 +72,16 @@ export default function DashSidebar() {
                         <Link to='/dashboard?tab=comments'>
                             <Sidebar.Item active={tab === 'comments'} icon={HiAnnotation} as='div'>
                                 Comments
+                            </Sidebar.Item>
+                        </Link>
+                        <Link to='/dashboard?tab=chatbot'>
+                            <Sidebar.Item active={tab === 'chatbot'} icon={HiFolderAdd} as='div'>
+                                Chatbot
+                            </Sidebar.Item>
+                        </Link>
+                        <Link to='/dashboard?tab=prompt'>
+                            <Sidebar.Item active={tab === 'prompt'} icon={HiOutlineAdjustments} as='div'>
+                                Prompt
                             </Sidebar.Item>
                         </Link>
                         </>

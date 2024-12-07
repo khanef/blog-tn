@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import {useSelector} from 'react-redux'
 import {Button, Modal, Table} from 'flowbite-react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
-import {FaCheck, FaTimes} from 'react-icons/fa'
 
 export default function DashComments() {
   const {currentUser} = useSelector((state) => state.user)
@@ -32,7 +31,6 @@ export default function DashComments() {
 
   const handleShowMore = async () => {
     const startIndex = comments.length
-    console.log(startIndex)
     try {
       const res = await fetch(`/api/comment/getcomments?startIndex=${startIndex}`)
       const data = await res.json()

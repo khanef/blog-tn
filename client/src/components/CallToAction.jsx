@@ -29,7 +29,6 @@ export default function CallToAction() {
       let newConversationId;
       if (!conversationId) {
         newConversationId = generateRandomId();
-        console.log('Generated New Conversation ID:', newConversationId);
         setConversationId(newConversationId);
       }
   
@@ -70,7 +69,6 @@ export default function CallToAction() {
       },
       body: JSON.stringify({ message: userMessage, conversation_id: String(conversationId) }),
     });
-    console.log(response.body);
   
     const reader = response.body.getReader();
     const decoder = new TextDecoder('utf-8');
@@ -106,8 +104,8 @@ export default function CallToAction() {
 
   return (
     <div className="flex flex-col sm:flex-row p-3 border border-teal-500 justify-center items-center rounded-tl-3xl rounded-br-3xl text-center">
-      <div className="bg-white rounded-lg p-5 w-full">
-        <h1 className="text-2xl font-bold mb-4 text-center">Blog Plants CHATBOT</h1>
+      <div className="bg-white rounded-lg p-5 w-full dark:text-gray-700 dark:bg-slate-800">
+        <h1 className="text-2xl font-bold mb-4 text-center dark:text-gray-200">Blog Plants CHATBOT</h1>
         <div
           ref={messagesContainerRef}
           className="h-64 overflow-y-auto rounded-lg p-2"
@@ -130,7 +128,7 @@ export default function CallToAction() {
               {message.sender === 'user' && (
                 <img
                   src={currentUser.profilePicture}
-                  className="w-8 h-8 rounded-full ml-2" // Add margin-left for spacing
+                  className="w-8 h-8 rounded-full ml-2"
                   alt={`${message.sender} avatar`}
                 />
               )}

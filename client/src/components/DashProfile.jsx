@@ -170,7 +170,7 @@ export default function DashProfile() {
                                 top: 0,
                                 left: 0
                             },
-                            path: {
+                            path: { 
                                 stroke: `rgba( 62, 152, 199, ${imageFileUploadProgress / 100})`
                             }
                         }}

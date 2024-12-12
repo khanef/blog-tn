@@ -86,39 +86,32 @@ export default function PostPage() {
     )
     const plainText = post.content.replace(/<\/?[^>]+(>|$)/g, "");
   return (
-    <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
-        <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>{post && post.title}</h1>
-        <Link to={`/search?category=${post && post.category}`} className='self-center mt-5'>
-            <Button color='gray' pill size='xs' >{post && post.category}</Button>
-        </Link>
-        <Button color='gray' pill size='xs' className='self-center mt-5'>
-            <span 
-                onClick={() => {
-                    setShowModal(true)
-                }}>
-                Summory now
-            </span>
-        </Button>   
-        <img src={post && post.image} alt={post && post.title} className='mt-10 p-3 max-h-[600px] w-full object-cover'/>
-        <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs '>
-            <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-            <span className='italic'>{post && (post.content.length / 1000).toFixed(0)} mins read</span>
-        </div>
-        <div className='p-3 max-w-6xl mx-auto w-full justify-center items-center post-content text-justify' dangerouslySetInnerHTML={{__html: post && post.content}}>
+    <main className='p-3 flex flex-col max-w-9xl mx-auto min-h-screen pt-20'>
+        <div className='flex flex-row relative'>
+            <div className='w-2/3 min-h-screen '>  
+                <img src={post && post.image} alt={post && post.title} className='p-5 max-h-[600px] w-full object-cover'/>
+                <h1 className='text-3xl mt-5 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>{post && post.title}</h1>
+                <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs '>
+                    <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
+                    <span className='italic'>{post && (post.content.length / 1000).toFixed(0)} mins read</span>
+                </div>
+                <div className='p-3 max-w-6xl mx-auto w-full justify-center items-center post-content text-justify' dangerouslySetInnerHTML={{__html: post && post.content}}>
 
-        </div>
-        <div className='max-w-4xl mx-auto w-full'>
-            <CallToAction/>
-        </div>
-        <CommentSection postId={post._id} />
-        <div className='flex flex-col justify-center items-center mb-5'>
-            <h1 className='text-xl mt-5'>Recent articales</h1>
-            <div className='flex  gap-5 mt-5 justify-center'>
-                {
-                    recentPosts && recentPosts.map((post) => 
-                        <PostCard key={post._id} post={post}/>
-                    )
-                }
+                </div>           
+                <CommentSection postId={post._id} />
+                <div className='flex flex-col justify-center items-center mb-5'>
+                    <h1 className='text-xl mt-5'>Recent articales</h1>
+                    <div className='flex  gap-5 mt-5 justify-center'>
+                        {
+                            recentPosts && recentPosts.map((post) => 
+                                <PostCard key={post._id} post={post}/>
+                            )
+                        }
+                    </div>
+                </div>
+            </div>
+            <div className='mt-3 w-1/3 h-full fixed z-10 top-13 right-3'>
+                <CallToAction/>
             </div>
         </div>
         <Modal show={showModal} onClose={() => setShowModal(false)} size="8xl">

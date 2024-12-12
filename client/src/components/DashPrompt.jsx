@@ -69,7 +69,7 @@ export default function DashPrompt() {
   }, [currentUser]);
 
   return (
-    <div className="p-3 max-w-7xl mx-auto min-h-screen">
+    <div className="p-3 max-w-7xl mx-auto min-h-screen pt-20">
       <h1 className="text-center text-3xl my-7 font-semibold">Custom Prompt</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <TextInput

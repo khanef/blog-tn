@@ -19,7 +19,7 @@ export default function Home() {
     fetchPosts()
   }, [])
   return (
-    <div>
+    <div className='pt-10'>
       <div className='relative'>
         <img src={mainScreen} className='w-full h-[840px]'/>
       

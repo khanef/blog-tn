@@ -96,19 +96,19 @@ export default function CallToAction() {
       });
   
       scrollToBottom();
-      processResult(); // Continue reading
+      processResult(); 
     };
   
     processResult();
   };
 
   return (
-    <div className="flex flex-col sm:flex-row p-3 border border-teal-500 justify-center items-center rounded-tl-3xl rounded-br-3xl text-center">
-      <div className="bg-white rounded-lg p-5 w-full dark:text-gray-700 dark:bg-slate-800">
+    <div className="flex flex-col sm:flex-row p-3 border border-teal-500 justify-center items-center rounded-tl-3xl rounded-br-3xl text-center h-4/5">
+      <div className="bg-white rounded-lg p-5 w-full dark:text-gray-700 dark:bg-slate-800 h-full">
         <h1 className="text-2xl font-bold mb-4 text-center dark:text-gray-200">Blog Plants CHATBOT</h1>
         <div
           ref={messagesContainerRef}
-          className="h-64 overflow-y-auto rounded-lg p-2"
+          className=" h-4/5 overflow-y-auto rounded-lg relative pb-30"
         >
           {messages.map((message, index) => (
             <div key={index} className={`flex items-start mb-2 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -135,7 +135,6 @@ export default function CallToAction() {
             </div>
           ))}
         </div>
-        <div className="flex">
           <TextInput
             id="input"
             value={input}
@@ -143,9 +142,8 @@ export default function CallToAction() {
             onKeyDown={handleKeyDown}
             placeholder="Say something..."
             rows={1}
-            className="rounded-r-lg p-2 w-full resize-none"
+            className="rounded-r-lg p-2 w-full h-1/5 resize-none absolute right-0 bottom-16 z-30 mt-10"
           />
-        </div>
       </div>
     </div>
   );

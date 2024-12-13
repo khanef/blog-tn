@@ -64,7 +64,7 @@ export default function PostPage() {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
-                body: JSON.stringify({ content: plainText }), 
+                body: JSON.stringify({ dialogue: plainText }), 
             });
             const data = await res.json();
             console.log("Response:", data);
@@ -90,6 +90,14 @@ export default function PostPage() {
         <div className='flex flex-row relative'>
             <div className='w-2/3 min-h-screen '>  
                 <img src={post && post.image} alt={post && post.title} className='p-5 max-h-[600px] w-full object-cover'/>
+                <Button color='gray' pill size='xs' className='self-center mt-5'>
+                    <span 
+                        onClick={() => {
+                            setShowModal(true)
+                        }}>
+                        Summory now
+                    </span>
+                </Button> 
                 <h1 className='text-3xl mt-5 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>{post && post.title}</h1>
                 <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs '>
                     <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>

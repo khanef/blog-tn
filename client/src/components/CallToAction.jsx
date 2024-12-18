@@ -3,13 +3,14 @@ import { TextInput } from 'flowbite-react';
 import {useSelector} from 'react-redux'
 import botAvatar from '../resources/img/bot-mini.png';
 
-export default function CallToAction() {
+export default function CallToAction({ post }) {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [conversationId, setConversationId] = useState('');
   const { currentUser } = useSelector((state) => state.user)
   const messagesContainerRef = useRef(null);
   const API_CHAT_URL = import.meta.env.VITE_API_CHAT_URL;
+  const API_SUMMARY_URL = import.meta.env.VITE_API_SUMMARY_URL;
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -24,26 +25,89 @@ export default function CallToAction() {
       const userMessage = input;
       setInput('');
       addMessage('user', userMessage);
-  
-      // If there's no conversationId, create a new one
-      let newConversationId;
-      if (!conversationId) {
-        newConversationId = generateRandomId();
-        setConversationId(newConversationId);
+
+      if (userMessage.toLowerCase().startsWith('summary')) {
+        if (post && post.content) {
+          const plainText = post.content.replace(/<\/?[^>]+(>|$)/g, '');
+          await sendSummaryMessage(plainText);
+        } else {
+          addMessage('bot', 'No content available to summarize.');
+        }
+      } else {
+        let newConversationId;
+        if (!conversationId) {
+          newConversationId = generateRandomId();
+          setConversationId(newConversationId);
+        }
+        await sendMessage(userMessage, conversationId || newConversationId);
       }
-  
-      // Call sendMessage with conversationId
-      await sendMessage(userMessage, conversationId || newConversationId);
     }
   };
+  
+  const sendSummaryMessage = async (plainText) => {
+    addMessage('bot', 'loader');
+  
+    try {  
+      const response = await fetch(API_SUMMARY_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ dialogue: plainText }),
+      });
+  
+      const data = await response.json();  
+      if (!response.ok) {
+        console.error("Error from summary API:", data.message || "Unknown error");
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages];
+          updatedMessages[updatedMessages.length - 1] = {
+            sender: 'bot',
+            content: "An error occurred while generating the summary.",
+          };
+          return updatedMessages;
+        });
+        return;
+      }
+  
+      const botResponse = data.summary || "Sorry, I couldn't generate a summary.";
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages];
+        updatedMessages[updatedMessages.length - 1] = {
+          sender: 'bot',
+          content: formatBotResponse(botResponse),
+        };
+        return updatedMessages;
+      });
+    } catch (error) {
+      console.error("Error in sendSummaryMessage:", error.message);
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages];
+        updatedMessages[updatedMessages.length - 1] = {
+          sender: 'bot',
+          content: "An error occurred while fetching the summary.",
+        };
+        return updatedMessages;
+      });
+    } finally {
+      scrollToBottom();
+    }
+  };  
 
   const addMessage = (sender, content) => {
+    const messageContent = sender === 'bot' && content === 'loader'
+      ? (<div className="loader"></div>)
+      : content;
+  
     setMessages((prevMessages) => [
       ...prevMessages,
-      { sender, content },
+      { sender, content: messageContent },
     ]);
+  
     scrollToBottom();
   };
+  
 
   const scrollToBottom = () => {
     if (messagesContainerRef.current) {
@@ -62,6 +126,8 @@ export default function CallToAction() {
   };
   
   const sendMessage = async (userMessage, conversationId) => {
+    addMessage('bot', 'loader');
+
     const response = await fetch(API_CHAT_URL, {
       method: 'POST',
       headers: {
@@ -73,9 +139,7 @@ export default function CallToAction() {
     const reader = response.body.getReader();
     const decoder = new TextDecoder('utf-8');
     let botResponse = '';
-  
-    addMessage('bot', 'Typing...');
-  
+    
     const processResult = async () => {
       const { done, value } = await reader.read();
       if (done) return;
@@ -83,7 +147,6 @@ export default function CallToAction() {
       const token = decoder.decode(value);
       botResponse += token;
   
-      // Định dạng lại câu trả lời của bot
       const formattedResponse = formatBotResponse(botResponse);
   
       setMessages((prevMessages) => {
@@ -96,11 +159,12 @@ export default function CallToAction() {
       });
   
       scrollToBottom();
-      processResult(); 
+      processResult();
     };
   
     processResult();
   };
+  
 
   return (
     <div className="flex flex-col sm:flex-row p-3 border border-teal-500 justify-center items-center rounded-tl-3xl rounded-br-3xl text-center h-4/5">

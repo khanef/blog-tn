@@ -75,7 +75,7 @@ export default function Home() {
             <div className='flex flex-col gap-6'>
               <h2 className='text-7xl text-center'>Our Article</h2>
               <span className='mx-24 text-center'>
-                This is an example paragraph. You can replace the content here with your own text This is an example paragraph. This is an example paragraph. You can replace the content here with your own text. This is an example paragraph. You can replace the content here with your own text
+                This is all of our blogs. We cover topics like gardening tips, plant care, and sustainable living. Our content is designed for both beginners and experienced gardeners. Whether you're into indoor plants, outdoor gardening, or eco-friendly practices, our blog has something for you. We update regularly to keep you informed and inspired.
               </span>
               <div className='flex flex-wrap gap-3'>
                 {posts.map((post) => (

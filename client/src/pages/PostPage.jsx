@@ -119,7 +119,7 @@ export default function PostPage() {
                 </div>
             </div>
             <div className='mt-3 w-1/3 h-full fixed z-10 top-13 right-3'>
-                <CallToAction/>
+                <CallToAction post={post}/>
             </div>
         </div>
         <Modal show={showModal} onClose={() => setShowModal(false)} size="8xl">

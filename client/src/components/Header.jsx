@@ -49,7 +49,7 @@ export default function Header() {
   return (
     <Navbar className='border-b-2 fixed z-20 top-0 left-0 right-0'>
         <Link to="/" className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
-            <span className='px-2 py-1 bg-gradient-to-r from-teal-300 via-green-200 to-lime-300 rounded-lg text-slate-950'>Flowers's Soul</span>
+            <span className='px-2 py-1 bg-gradient-to-r from-teal-300 via-green-200 to-lime-300 rounded-lg text-slate-950 mr-1'>Flowers's Soul</span>
             Blog
         </Link>
         <form onSubmit={handleSubmit}>
